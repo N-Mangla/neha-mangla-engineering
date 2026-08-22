@@ -218,6 +218,7 @@ a {
 .hero__copy {
   position: relative;
   z-index: 3;
+  min-width: 0;
 }
 
 .hero__status {
@@ -261,11 +262,13 @@ a {
 }
 
 .hero__lede {
+  width: 100%;
   max-width: 650px;
   margin: 42px 0 0;
   color: rgb(255 255 255 / 66%);
   font-size: clamp(1.03rem, 1.45vw, 1.24rem);
   line-height: 1.62;
+  overflow-wrap: break-word;
 }
 
 .hero__actions {
@@ -3020,18 +3023,28 @@ a {
     font-size: 0.61rem;
   }
 
+  .hero__copy {
+    min-width: 0;
+  }
+
   .hero__copy h1 {
-    font-size: clamp(3.7rem, 17vw, 5.1rem);
+    max-width: 100%;
+    font-size: clamp(3.35rem, 16vw, 4.65rem);
     line-height: 0.91;
   }
 
   .hero__copy h1 > span {
+    width: auto;
+    max-width: 100%;
     margin-top: 8px;
   }
 
   .hero__lede {
+    width: 100%;
+    max-width: 100%;
     margin-top: 30px;
     font-size: 0.97rem;
+    overflow-wrap: break-word;
   }
 
   .hero__actions {
