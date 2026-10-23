@@ -10,10 +10,10 @@ export interface Article {
 export const articles: Article[] = [
   {
     slug: "reliable-scheduling-uis",
-    title: "Building reliable scheduling UIs",
-    description: "What working on an enterprise calendar taught me about date semantics, state boundaries, and responsive navigation.",
+    title: "Why building a reliable calendar UI is harder than it looks",
+    description: "A practical look at date-only events, the boundary around a calendar library, and keeping schedule data responsive without going stale.",
     publishedAt: null, // Editorial draft. Set a real date only after final review.
-    readingMinutes: 9,
+    readingMinutes: 6,
     topics: ["React", "TypeScript", "Scheduling", "Frontend architecture"],
   },
 ];
