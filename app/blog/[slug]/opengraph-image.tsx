@@ -37,7 +37,7 @@ export default async function OpenGraphImage({
             <span style={{ color: "#a7c4ed" }}>new Date</span><span>(</span><span style={{ color: "#d9c398" }}>&quot;2026-10-23&quot;</span><span>);</span>
           </div>
           <div style={{ display: "flex", fontSize: 21, color: "#9faec0" }}>
-            // Los Angeles → <span style={{ color: "#e7b1ac", marginLeft: 9 }}>October 22</span>
+            {"// Los Angeles →"} <span style={{ color: "#e7b1ac", marginLeft: 9 }}>October 22</span>
           </div>
         </div>
         <div style={{
