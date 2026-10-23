@@ -17,7 +17,6 @@ export default function BlogIndex() {
     <>
       <SiteHeader />
       <main className="blog-page shell">
-        <p className="eyebrow">Engineering Notes</p>
         <h1>Engineering Notes</h1>
         <p className="blog-page__intro">
           I work mostly with React, TypeScript, and enterprise applications.
@@ -34,7 +33,7 @@ export default function BlogIndex() {
             </article>
           ))}</div>
         ) : (
-          <p className="blog-page__empty">I&apos;m finishing the first article on workforce scheduling. In the meantime, you can explore the related case study below.</p>
+          <p className="blog-page__empty">I&apos;m working on the first article, about dates, data loading, and state in a workforce calendar. Until then, <a href="/work/workforce-calendar">here&apos;s the related case study</a>.</p>
         )}
         <p className="blog-page__back"><InternalLink href="/#work">← Explore selected work</InternalLink></p>
       </main>
