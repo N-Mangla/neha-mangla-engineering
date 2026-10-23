@@ -2,21 +2,19 @@ export function SchedulingArticle() {
   return (
     <div className="article-body">
       <p className="article-lead">
-        A scheduling UI can look perfectly fine and still be wrong. A day off can
-        appear on the previous date. An absence can reveal information the viewer
-        should never see. Moving between weeks can trigger the same requests again,
-        even when the data has not changed.
+        Most calendar bugs I&apos;ve dealt with were not about drawing events on a screen.
+        They came from the assumptions around those events: what a date means,
+        what someone is allowed to see, and when data needs to be fetched again.
       </p>
       <p>
-        These were the kinds of problems I had to reason about while working on
-        a workforce calendar built with React, TypeScript, and Bryntum. The visible
-        calendar was only one part of the work. Behind it were several services,
-        different kinds of time-related records, permission rules, and people
-        moving between day, week, month, and team views.
+        On a workforce scheduling project built with React, TypeScript, and Bryntum,
+        we had shifts, overtime, absences, and days off arriving through different
+        services. The same information also had to behave consistently in day,
+        week, month, and team views.
       </p>
       <p>
-        I found that many of the difficult decisions happened before the data
-        reached the calendar component at all.
+        The approach that held up best was to settle the meaning of an event before
+        passing it to the calendar library.
       </p>
 
       <h2 id="event-model">The calendar should not interpret every service response</h2>
@@ -126,12 +124,11 @@ export function SchedulingArticle() {
         </table>
       </div>
 
-      <h2 id="takeaway">What stayed with me</h2>
+      <h2 id="takeaway">Where I would draw the boundary again</h2>
       <p>
-        The calendar integration was not difficult only because it was a calendar.
-        It was difficult because it sat at the intersection of business dates,
-        service contracts, permissions, navigation state, and a third-party
-        rendering system.
+        Scheduling pulls several concerns into one screen: service contracts,
+        business dates, permissions, navigation, and a third-party UI library.
+        Problems appear when those concerns start making decisions for each other.
       </p>
       <p>
         The most useful decision was giving those rules a stable home outside
