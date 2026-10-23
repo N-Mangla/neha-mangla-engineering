@@ -18,11 +18,11 @@ export default function BlogIndex() {
       <SiteHeader />
       <main className="blog-page shell">
         <p className="eyebrow">Engineering Notes</p>
-        <h1>Notes from building complex interfaces.</h1>
+        <h1>Engineering Notes</h1>
         <p className="blog-page__intro">
-          I write about the parts of frontend engineering that don&apos;t fit neatly
-          into a feature description: boundaries, debugging, data semantics,
-          testing, and the decisions that make software easier to trust.
+          I work mostly with React, TypeScript, and enterprise applications.
+          This is where I write about specific implementation decisions,
+          debugging work, and the trade-offs I&apos;ve encountered along the way.
         </p>
         {articles.length ? (
           <div className="blog-grid">{articles.map(article => (
@@ -34,7 +34,7 @@ export default function BlogIndex() {
             </article>
           ))}</div>
         ) : (
-          <p className="blog-page__empty">The first engineering note is in progress.</p>
+          <p className="blog-page__empty">I&apos;m finishing the first article on workforce scheduling. In the meantime, you can explore the related case study below.</p>
         )}
         <p className="blog-page__back"><InternalLink href="/#work">← Explore selected work</InternalLink></p>
       </main>
