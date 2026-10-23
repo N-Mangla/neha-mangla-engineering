@@ -8563,3 +8563,25 @@ a {
 .blog-card .blog-card__read {font-weight:700;text-decoration:underline;text-underline-offset:4px}
 .blog-card .blog-card__read:hover {text-decoration-thickness:2px}
 .blog-card:focus-within {outline:2px solid #5a79ba;outline-offset:4px}
+
+/* Shared footer: quieter invitation across portfolio and articles */
+.site-footer__inner { padding-block: clamp(3.25rem, 6vw, 4.25rem) 1.875rem; }
+.site-footer__title {
+  max-width: 950px;
+  margin-bottom: 1rem;
+  font-size: clamp(2.1rem, 3.65vw, 3.8rem);
+  line-height: 1.08;
+  letter-spacing: -0.052em;
+}
+.site-footer__support {
+  max-width: 700px;
+  margin: 0 0 2.75rem;
+  color: rgb(255 255 255 / 65%);
+  font-size: clamp(.95rem, 1.3vw, 1.12rem);
+  line-height: 1.6;
+}
+@media (max-width: 660px) {
+  .site-footer__inner { padding-block: 3.25rem 1.625rem; }
+  .site-footer__title { font-size: clamp(2rem, 8vw, 2.7rem); }
+  .site-footer__support { margin-bottom: 2rem; }
+}
