@@ -47,22 +47,8 @@ export default async function ArticlePage({ params }: Props) {
             {article.publishedAt && <><span aria-hidden="true">·</span> <time dateTime={article.publishedAt}>{new Date(article.publishedAt).toLocaleDateString("en-GB", {day:"numeric",month:"long",year:"numeric",timeZone:"UTC"})}</time></>}
           </div>
         </header>
-        <div className="article-layout">
-          <aside className="article-toc" aria-label="On this page">
-            <span>On this page</span>
-            <a href="#event-model">Data integration</a>
-            <a href="#dates">All-day events</a>
-            <a href="#continuity">Navigation and refresh</a>
-            <a href="#verification">Regression checks</a>
-            <a href="#takeaway">Looking back</a>
-          </aside>
+        <div className="article-layout article-layout--focused">
           <SchedulingArticle />
-        </div>
-        <div className="article-outro">
-          <p className="eyebrow">Related work</p>
-          <h2>Workforce scheduling case study</h2>
-          <p>A closer look at the production constraints, engineering decisions, and outcomes behind the calendar.</p>
-          <InternalLink href="/work/workforce-calendar">Read the case study ↗</InternalLink>
         </div>
         <script type="application/ld+json" dangerouslySetInnerHTML={{__html: JSON.stringify({
           "@context":"https://schema.org","@type":"BlogPosting",
