@@ -30,6 +30,7 @@ export function SiteFooter() {
           <p>© {new Date().getFullYear()} Neha Mangla</p>
           <div>
             <InternalLink href="/#work">Work</InternalLink>
+            <InternalLink href="/blog">Engineering Notes</InternalLink>
             <a
               href="https://github.com/N-Mangla"
               rel="noreferrer"

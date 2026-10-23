@@ -69,6 +69,13 @@ export default function Home() {
           </div>
         </section>
 
+        <section className="notes-preview shell" aria-labelledby="notes-title">
+          <p className="eyebrow">Engineering Notes</p>
+          <h2 id="notes-title">The thinking behind the implementation.</h2>
+          <p>Some engineering decisions deserve more room than a project summary.</p>
+          <InternalLink href="/blog">Read engineering notes ↗</InternalLink>
+        </section>
+
         <section className="earlier-work" aria-labelledby="earlier-work-title">
           <div className="earlier-work__inner shell">
             <div className="section-heading section-heading--compact">

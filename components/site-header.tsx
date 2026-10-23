@@ -12,6 +12,7 @@ export function SiteHeader() {
         <nav className="site-nav" aria-label="Primary navigation">
           <InternalLink href="/#work">Work</InternalLink>
           <InternalLink href="/#about">About</InternalLink>
+          <InternalLink href="/blog">Engineering Notes</InternalLink>
           <a
             href="https://www.linkedin.com/in/nehamangla/"
             rel="noreferrer"
