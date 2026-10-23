@@ -18,7 +18,7 @@ export function SchedulingArticle() {
         on each calendar view to interpret them.
       </p>
 
-      <h2 id="event-model">The calendar should not interpret every service response</h2>
+      <h2 id="event-model">Where the calendar data came together</h2>
       <p>
         Shifts, overtime, and absences do not necessarily share a data contract.
         They may have different identifiers, date fields, and visibility rules.
@@ -34,17 +34,25 @@ export function SchedulingArticle() {
       </p>
 
       <figure className="article-diagram">
-        <figcaption>One boundary for product rules before rendering</figcaption>
+        <figcaption>How I separated service data from calendar rendering — simplified</figcaption>
+        <div className="article-diagram__stage">Service responses</div>
         <div className="article-diagram__sources">
-          <span>Schedules</span><span>Absences</span><span>Overtime</span>
+          <span>Shifts and overtime</span><span>Absences and days off</span><span>Categories and visibility</span>
         </div>
         <div className="article-diagram__arrow" aria-hidden="true">↓</div>
-        <div className="article-diagram__core">Typed application event model
-          <small>identity · date semantics · permissions</small>
+        <div className="article-diagram__core">
+          Application event model
+          <small>Stable identity · date-only vs timed records · event category · permission metadata</small>
         </div>
         <div className="article-diagram__arrow" aria-hidden="true">↓</div>
+        <div className="article-diagram__stage">Data and navigation handling</div>
         <div className="article-diagram__sources">
-          <span>Day</span><span>Week</span><span>Month / team</span>
+          <span>Visible-range cache</span><span>Refresh and reload</span><span>Selected date and view</span>
+        </div>
+        <div className="article-diagram__arrow" aria-hidden="true">↓</div>
+        <div className="article-diagram__stage">Bryntum rendering</div>
+        <div className="article-diagram__sources">
+          <span>Day / week</span><span>Month / team</span><span>Consistent privacy rules</span>
         </div>
       </figure>
 
@@ -55,7 +63,7 @@ export function SchedulingArticle() {
         require revisiting every rendering configuration.
       </p>
 
-      <h2 id="dates">Some dates are days, not instants</h2>
+      <h2 id="dates">The all-day event problem</h2>
       <p>
         Take a date-only value such as <code>2026-10-23</code>. If a JavaScript
         implementation parses it as UTC midnight, a viewer in a timezone behind
@@ -76,11 +84,11 @@ export function SchedulingArticle() {
       <p>
         A useful regression check is to render the same date-only record in several
         timezones and across all supported views. I would also check the
-        boundaries around midnight and daylight-saving changes. A converter
+        boundaries around midnight and daylight-saving changes as an additional regression scenario. A converter
         can pass its unit tests while a view still applies a second conversion.
       </p>
 
-      <h2 id="continuity">Navigation context and server data have different lifetimes</h2>
+      <h2 id="continuity">Keeping navigation fast without showing stale data</h2>
       <p>
         People move around a calendar repeatedly. They change the view, jump
         between dates, and come back to the range they were just looking at.
@@ -110,7 +118,7 @@ export function SchedulingArticle() {
         matters whether state lives in Zustand, React Query, or another tool.
       </p>
 
-      <h2 id="verification">What I wanted the tests to catch</h2>
+      <h2 id="verification">The cases I would never leave to manual testing</h2>
       <p>
         The failure cases worth checking are often quiet ones: a date shifted by
         one day, a restricted absence rendered with too much detail, or a cached
@@ -130,7 +138,7 @@ export function SchedulingArticle() {
         </table>
       </div>
 
-      <h2 id="takeaway">The boundary I would keep</h2>
+      <h2 id="takeaway">What I would keep if I built it again</h2>
       <p>
         Scheduling pulls several concerns into one screen: service contracts,
         business dates, permissions, navigation, and a third-party UI library.
