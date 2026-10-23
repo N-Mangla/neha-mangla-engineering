@@ -29,7 +29,7 @@ export default function BlogIndex() {
               <p className="eyebrow">{!article.publishedAt ? "Draft · Local preview" : article.topics.slice(0, 2).join(" · ")}</p>
               <h2><InternalLink href={`/blog/${article.slug}`}>{article.title}</InternalLink></h2>
               <p>{article.description}</p>
-              <span>{article.readingMinutes} min read <span aria-hidden="true">↗</span></span>
+              <div className="blog-card__meta"><span>{article.readingMinutes} min read</span><InternalLink className="blog-card__read" href={`/blog/${article.slug}`}>Read article <span aria-hidden="true">↗</span></InternalLink></div>
             </article>
           ))}</div>
         ) : (
