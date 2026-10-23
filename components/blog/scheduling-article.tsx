@@ -48,10 +48,10 @@ export function SchedulingArticle() {
       </figure>
 
       <p>
-        The extra mapping layer was not free: it was another contract to own and
-        test. But the trade-off was worth making. Changes in the service shape
-        could be handled at the boundary, and the calendar library did not become
-        the authority for business meaning.
+        That layer added code and tests we had to maintain. I considered that a fair
+        cost compared with repeating conversion and permission rules in each
+        calendar view. It also meant a change to one service contract did not
+        require revisiting every rendering configuration.
       </p>
 
       <h2 id="dates">Some dates are days, not instants</h2>
@@ -72,10 +72,10 @@ export function SchedulingArticle() {
         <div><strong>Timestamp</strong><code>2026-10-23T09:00:00Z</code><span>The displayed local time can change.</span></div>
       </div>
       <p>
-        This distinction needed tests at timezone boundaries, especially when
-        the user&apos;s timezone and the originating service did not agree. It also
-        mattered across views: a rule that works in week view is not sufficient
-        if month or team view takes a separate rendering path.
+        I would test this with the same date-only value in timezones on either side
+        of UTC, then check the result in each calendar view. A passing unit test
+        for the converter alone would not catch a view that applied another
+        conversion while rendering.
       </p>
 
       <h2 id="continuity">Navigation context and server data have different lifetimes</h2>
@@ -94,22 +94,25 @@ export function SchedulingArticle() {
         fresh read was necessary.
       </p>
       <p>
-        Debouncing rapid navigation reduced requests for ranges a user barely
-        visited. The harder part was deciding when a response still belonged to
-        the active range, and making sure updates followed a controlled path
-        rather than producing inconsistent state.
+        Rapid navigation was another place where it was easy to waste requests.
+        Debouncing helped, but it was only one part of the solution. The visible
+        range also needed a stable cache key, and a response from an earlier
+        navigation could not be allowed to replace data for the range now on
+        screen. Those details matter more than making a loading spinner disappear.
       </p>
       <p>
-        This is where the underlying trade-off matters more than the choice of
-        state library. Remembering where a user was is not the same as claiming
-        the remembered schedule is current.
+        I treat the selected date and view as navigation context, not as proof that
+        previously loaded events are still current. Persisting that context and
+        revalidating server data are two different decisions. In a React app,
+        the store you choose matters less than making that distinction explicit.
       </p>
 
       <h2 id="verification">What I wanted the tests to catch</h2>
       <p>
-        Happy-path screenshots don&apos;t tell you whether a calendar is trustworthy.
-        The more useful tests were tied to failures that could be silent or hard
-        to notice during ordinary navigation.
+        I spent more attention on cases where a wrong result could look plausible:
+        a date shifted by one day, an absence rendered with too much detail,
+        or a cached range that never refreshed. They are easy to miss if testing
+        stops after confirming that events appear on the screen.
       </p>
       <div className="article-table-wrap">
         <table className="article-table">
