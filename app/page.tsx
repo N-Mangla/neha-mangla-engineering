@@ -55,7 +55,7 @@ export default function Home() {
                 <span className="section-heading__line" aria-hidden="true" />
               </div>
               <h2 id="work-title">
-                Engineering stories, <span>not feature lists.</span>
+                Selected engineering <span>work.</span>
               </h2>
             </div>
 
