@@ -3,7 +3,7 @@ export function SchedulingArticle() {
     <article className="article-body article-body--focused">
       <p className="article-lead">
         A shift, a day off, and an absence can all appear as blocks on a calendar.
-        But they don't mean the same thing. I ran into that distinction while
+        But they don&apos;t mean the same thing. I ran into that distinction while
         working on a workforce scheduling interface with React, TypeScript, and Bryntum.
       </p>
       <p>
@@ -15,25 +15,25 @@ export function SchedulingArticle() {
 
       <h2 id="dates">When an all-day event lands on the wrong date</h2>
       <p>
-        Here's a small example of why I treat date-only values differently
+        Here&apos;s a small example of why I treat date-only values differently
         from timestamps. These are illustrative records, not application code:
       </p>
       <div className="article-example-grid">
         <div className="article-example">
           <span className="article-example__label">Day off · calendar date</span>
           <pre><code>{'{ type: "dayOff", date: "2026-10-23" }'}</code></pre>
-          <p>The day off belongs to 23 October, regardless of the viewer's timezone.</p>
+          <p>The day off belongs to 23 October, regardless of the viewer&apos;s timezone.</p>
         </div>
         <div className="article-example">
           <span className="article-example__label">Shift · moment in time</span>
           <pre><code>{'{ type: "shift", start: "2026-10-23T09:00:00Z" }'}</code></pre>
-          <p>A shift's displayed clock time can change with the selected timezone.</p>
+          <p>A shift&apos;s displayed clock time can change with the selected timezone.</p>
         </div>
       </div>
       <p>
         Parsing <code>2026-10-23</code> as midnight UTC and then formatting it
-        in a timezone behind UTC can show October 22. That's valid conversion
-        of an instant, but it's not what the date-only record meant.
+        in a timezone behind UTC can show October 22. That&apos;s valid conversion
+        of an instant, but it&apos;s not what the date-only record meant.
         We kept calendar dates and timed events on separate conversion paths.
       </p>
 
@@ -67,7 +67,7 @@ export function SchedulingArticle() {
       <h2 id="navigation">Fast navigation without assuming cached data is current</h2>
       <p>
         Someone browsing a schedule might switch views, jump forward a week,
-        and return to a range they've just seen. Fetching the same range every
+        and return to a range they&apos;ve just seen. Fetching the same range every
         time makes navigation sluggish; never refreshing it risks showing an
         old schedule.
       </p>
@@ -93,24 +93,24 @@ export function SchedulingArticle() {
       <p>
         The awkward failures were often subtle: a day off shown one date early,
         confidential absence details visible in the wrong view, or an old
-        response replacing newer data. They wouldn't necessarily make the
+        response replacing newer data. They wouldn&apos;t necessarily make the
         screen look broken.
       </p>
       <ul className="article-checks">
         <li>Date-only records remain on the intended date across timezones and views.</li>
         <li>Privacy rules still apply when switching between individual and team views.</li>
-        <li>Revisiting a cached range doesn't prevent a later refresh.</li>
-        <li>A failed service request doesn't take down the surrounding interface.</li>
-        <li>Rapid navigation doesn't let an earlier response overwrite the active range.</li>
+        <li>Revisiting a cached range doesn&apos;t prevent a later refresh.</li>
+        <li>A failed service request doesn&apos;t take down the surrounding interface.</li>
+        <li>Rapid navigation doesn&apos;t let an earlier response overwrite the active range.</li>
       </ul>
 
       <p>
-        If I built this again, I'd still keep product rules outside the calendar
-        component. Bryntum should handle interaction and rendering; it shouldn't
+        If I built this again, I&apos;d still keep product rules outside the calendar
+        component. Bryntum should handle interaction and rendering; it shouldn&apos;t
         decide what a business date means or which absence details someone can see.
       </p>
       <p className="article-note">
-        Examples are simplified for illustration. They don't reproduce employer
+        Examples are simplified for illustration. They don&apos;t reproduce employer
         source code or internal service contracts.
       </p>
     </article>
