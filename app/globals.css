@@ -8605,3 +8605,16 @@ a {
 @media(max-width:700px) {
   .notes-preview__feature { flex-direction: column; align-items: flex-start; }
 }
+
+/* Case-study entry points: clearer affordances without changing card artwork */
+.project-card__title-link { color: inherit; text-decoration: none; }
+.project-card__title-link:hover { text-decoration: underline; text-underline-offset: .12em; }
+.project-card__title-link:focus-visible, .project-card__visual-link:focus-visible, .project-card__link:focus-visible {
+  outline: 3px solid #fff; outline-offset: 5px; border-radius: 6px;
+}
+.project-card__expectation { margin: 0 0 .9rem; color: rgb(255 255 255 / 80%); font-size: .72rem; line-height: 1.5; letter-spacing: .01em; }
+.project-card__visual-link { display: block; cursor: pointer; }
+.project-card__link { text-decoration: underline; text-underline-offset: 4px; }
+@media (hover: hover) {
+  .project-card__visual-link:hover { filter: brightness(1.055); }
+}
