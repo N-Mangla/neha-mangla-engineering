@@ -39,7 +39,7 @@ export default async function OpenGraphImage({
 
         <div style={{ display: "flex", width: 850, zIndex: 2, flexDirection: "column", gap: 25 }}>
           <div style={{ display: "flex", fontSize: 19, fontWeight: 600, color: "#8bb1ff", letterSpacing: 2 }}>
-            REACT  /  TYPESCRIPT  /  SYSTEM DESIGN
+            REACT  /  TYPESCRIPT  /  FRONTEND ARCHITECTURE
           </div>
           <div style={{ display: "flex", fontSize: 59, fontWeight: 700, lineHeight: 1.13, letterSpacing: -2 }}>
             {article.title}
@@ -53,7 +53,7 @@ export default async function OpenGraphImage({
 
         <div style={{ display: "flex", position: "absolute", right: -95, top: 155, width: 330, height: 315, border: "1px solid #9ab9ff35", borderRadius: 22, transform: "rotate(-10deg)", flexDirection: "column", padding: 23, gap: 13, background: "#ffffff07" }}>
           <div style={{ display: "flex", justifyContent: "space-between", color: "#9bb6dc", fontSize: 16 }}>
-            <span>OCT 2026</span><span>WEEK VIEW</span>
+            <span>OCT 2026</span>
           </div>
           <div style={{ display: "flex", gap: 9 }}>
             {["M", "T", "W", "T", "F"].map((day, index) => (
