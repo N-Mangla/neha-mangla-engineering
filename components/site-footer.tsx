@@ -8,11 +8,11 @@ export function SiteFooter() {
     <footer className="site-footer">
       <div className="site-footer__inner shell">
         <div>
-          <p className="eyebrow eyebrow--light">Let&apos;s work together</p>
+          <p className="eyebrow eyebrow--light">Let&apos;s connect</p>
           <p className="site-footer__title">
-            I&apos;m open to Senior Full Stack Engineer opportunities where product
-            complexity, technical judgment, and production ownership matter.
+            Interested in building thoughtful, reliable software together?
           </p>
+          <p className="site-footer__support">Open to senior engineering opportunities, technical conversations, and collaboration.</p>
         </div>
 
         <a
