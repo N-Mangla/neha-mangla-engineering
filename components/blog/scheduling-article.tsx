@@ -66,8 +66,8 @@ export function SchedulingArticle() {
       <figure className="article-transform">
         <figcaption>Two different records, one deliberate rendering boundary</figcaption>
         <div className="article-transform__inputs">
-          <div><span>DATE-ONLY SOURCE</span><strong>Day off</strong><code>date: "2026-10-23"</code></div>
-          <div><span>TIMED SOURCE</span><strong>Shift</strong><code>startsAt: "...09:00Z"</code></div>
+          <div><span>DATE-ONLY SOURCE</span><strong>Day off</strong><code>date: &quot;2026-10-23&quot;</code></div>
+          <div><span>TIMED SOURCE</span><strong>Shift</strong><code>startsAt: &quot;...09:00Z&quot;</code></div>
         </div>
         <div className="article-transform__arrow" aria-hidden="true">↓</div>
         <div className="article-transform__model"><strong>Application event model</strong><span>Identity · record kind · permissions · date semantics</span></div>
