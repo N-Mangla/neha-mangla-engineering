@@ -8515,3 +8515,31 @@ a {
 .article-checks {margin:1rem 0 2.2rem;padding-left:1.35rem}
 .article-checks li {margin-bottom:.7rem;padding-left:.25rem}
 @media(max-width:650px){.article-example-grid{grid-template-columns:1fr}.article-layout--focused{max-width:100%}}
+
+/* Engineering article: examples, code, and transformation flow */
+.article-heading h1 {font-size:clamp(2.65rem,5vw,4.8rem)}
+.article-result,.article-choices {display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:.7rem;margin:1.8rem 0 2rem}
+.article-result > div,.article-choices > div {padding:1.15rem;background:#f0eee9;border:1px solid #dedbd4;border-radius:12px;display:flex;flex-direction:column;gap:.45rem}
+.article-result__eyebrow,.article-choices span,.article-transform__inputs span {font-size:.68rem;letter-spacing:.07em;font-weight:750;color:#626e75;text-transform:uppercase}
+.article-result strong {font-size:1.5rem;letter-spacing:-.03em;color:#18272f}
+.article-result small,.article-choices p {font-size:.82rem;line-height:1.55;color:#586268}
+.article-result > div:nth-child(2) {border-color:#dfbbb4;background:#f6ece9}
+.article-result > div:nth-child(3) {border-color:#afc6ba;background:#eaf1ed}
+.article-code {margin:1.5rem 0 2rem;background:#19232c;border:1px solid #33434f;border-radius:13px;overflow:hidden;color:#e8eff1}
+.article-code__header {display:flex;justify-content:space-between;gap:1rem;padding:.8rem 1.2rem;border-bottom:1px solid #35434c;font-size:.73rem;color:#b9cbd2}
+.article-code pre {margin:0;padding:1.25rem;overflow-x:auto;font-size:.84rem;line-height:1.72}
+.article-code code {background:transparent;padding:0;color:inherit;white-space:pre}
+.article-transform {margin:2rem 0;border:1px solid #d8d7d1;background:#f0eee9;border-radius:16px;padding:1.4rem;text-align:center}
+.article-transform figcaption {font-size:.84rem;color:#556068;margin-bottom:1.3rem}
+.article-transform__inputs,.article-transform__outputs {display:grid;grid-template-columns:1fr 1fr;gap:.8rem}
+.article-transform__inputs > div,.article-transform__outputs > div {background:#fffefa;border:1px solid #d9d8d1;padding:1rem;border-radius:9px;display:flex;flex-direction:column;gap:.35rem;min-width:0}
+.article-transform strong {font-size:.95rem;color:#1e3038}
+.article-transform code {font-size:.78rem;overflow-wrap:anywhere}
+.article-transform__arrow {padding:.55rem;color:#62777e;font-size:1.25rem}
+.article-transform__model {border:1px solid #9db9be;border-radius:9px;background:#dae8e9;padding:1.1rem;display:flex;flex-direction:column;gap:.25rem}
+.article-transform__model span,.article-transform__outputs span {font-size:.78rem;color:#53666a}
+.article-transform__footer {margin-top:.9rem;padding:.65rem;background:#253540;color:#f1f5f5;border-radius:8px;font-size:.77rem}
+.article-choices {grid-template-columns:1fr 1fr}
+.article-choices strong {font-size:1rem}
+.article-choices p {margin:0}
+@media(max-width:650px){.article-result,.article-choices,.article-transform__inputs,.article-transform__outputs {grid-template-columns:1fr}.article-code pre {font-size:.75rem}.article-heading h1 {font-size:clamp(2.45rem,9vw,3.4rem)}}
