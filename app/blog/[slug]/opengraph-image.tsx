@@ -2,7 +2,7 @@ import { ImageResponse } from "next/og";
 import { notFound } from "next/navigation";
 import { getArticle } from "@/data/articles";
 
-export const alt = "Engineering Notes — calendar UI reliability, by Neha Mangla";
+export const alt = "A calendar can render perfectly and still show the wrong day — Engineering Notes";
 export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";
 
@@ -13,60 +13,49 @@ export default async function OpenGraphImage({
 }) {
   const { slug } = await params;
   const article = getArticle(slug);
-
   if (!article || (!article.publishedAt && process.env.NODE_ENV !== "development")) {
     notFound();
   }
 
   return new ImageResponse(
-    (
-      <div style={{
-        display: "flex", width: "100%", height: "100%", position: "relative",
-        background: "linear-gradient(130deg, #151c2a 0%, #1b2639 72%, #223451 100%)",
-        color: "#f8f7f3", padding: "60px 70px", flexDirection: "column",
-        justifyContent: "space-between", overflow: "hidden",
-      }}>
-        <div style={{ display: "flex", alignItems: "center", gap: 16, zIndex: 2 }}>
-          <div style={{
-            display: "flex", alignItems: "center", justifyContent: "center",
-            width: 48, height: 48, borderRadius: 13, background: "#526ae4",
-            boxShadow: "0 8px 24px #070b184d", fontSize: 20, fontWeight: 700,
-          }}>NM</div>
-          <div style={{ display: "flex", fontSize: 18, letterSpacing: 1.5, color: "#c8d0e3" }}>
-            NEHA MANGLA <span style={{ margin: "0 14px", color: "#7487a2" }}>/</span> ENGINEERING NOTES
+    <div style={{
+      display: "flex", flexDirection: "column", justifyContent: "space-between",
+      width: "100%", height: "100%", background: "#141922", color: "#f5f3ee",
+      padding: "58px 72px", fontFamily: "sans-serif",
+    }}>
+      <div style={{ display: "flex", fontSize: 17, letterSpacing: 1.7, color: "#9eacbf" }}>
+        ENGINEERING NOTES <span style={{ margin: "0 14px", color: "#66778d" }}>/</span> NEHA MANGLA
+      </div>
+      <div style={{ display: "flex", flexDirection: "column", gap: 30 }}>
+        <div style={{
+          display: "flex", flexDirection: "column", alignSelf: "flex-start",
+          gap: 10, padding: "23px 28px", background: "#1d2531",
+          borderLeft: "3px solid #7397c1", borderRadius: 5,
+          fontFamily: "monospace",
+        }}>
+          <div style={{ display: "flex", fontSize: 23, color: "#dbe4f0" }}>
+            <span style={{ color: "#a7c4ed" }}>new Date</span><span>(</span><span style={{ color: "#d9c398" }}>&quot;2026-10-23&quot;</span><span>);</span>
+          </div>
+          <div style={{ display: "flex", fontSize: 21, color: "#9faec0" }}>
+            {"// Los Angeles →"} <span style={{ color: "#e7b1ac", marginLeft: 9 }}>October 22</span>
           </div>
         </div>
-
-        <div style={{ display: "flex", width: 850, zIndex: 2, flexDirection: "column", gap: 25 }}>
-          <div style={{ display: "flex", fontSize: 19, fontWeight: 600, color: "#8bb1ff", letterSpacing: 2 }}>
-            REACT  /  TYPESCRIPT  /  FRONTEND ARCHITECTURE
-          </div>
-          <div style={{ display: "flex", fontSize: 59, fontWeight: 700, lineHeight: 1.13, letterSpacing: -2 }}>
-            {article.title}
-          </div>
-        </div>
-
-        <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", zIndex: 2, borderTop: "1px solid #ffffff29", paddingTop: 22 }}>
-          <div style={{ display: "flex", fontSize: 22, color: "#bec8d8" }}>Date handling · State · Data freshness</div>
-          <div style={{ display: "flex", fontSize: 22, color: "#e1e6f0" }}>nehamangla.com ↗</div>
-        </div>
-
-        <div style={{ display: "flex", position: "absolute", right: -95, top: 155, width: 330, height: 315, border: "1px solid #9ab9ff35", borderRadius: 22, transform: "rotate(-10deg)", flexDirection: "column", padding: 23, gap: 13, background: "#ffffff07" }}>
-          <div style={{ display: "flex", justifyContent: "space-between", color: "#9bb6dc", fontSize: 16 }}>
-            <span>OCT 2026</span>
-          </div>
-          <div style={{ display: "flex", gap: 9 }}>
-            {["M", "T", "W", "T", "F"].map((day, index) => (
-              <div key={index} style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 11, width: 44 }}>
-                <span style={{ color: "#b7c7df", fontSize: 16 }}>{day}</span>
-                <div style={{ display: "flex", height: 132, width: 38, borderRadius: 7, background: index === 2 ? "#6f90ec75" : "#ffffff10", border: "1px solid #ffffff20" }} />
-              </div>
-            ))}
-          </div>
-          <div style={{ display: "flex", background: "#79b8ae65", width: 190, height: 25, borderRadius: 6 }} />
+        <div style={{
+          display: "flex", fontSize: 62, fontWeight: 700,
+          letterSpacing: -2, lineHeight: 1.1, maxWidth: 1010,
+        }}>
+          A calendar can render perfectly and still show the wrong day.
         </div>
       </div>
-    ),
+      <div style={{
+        display: "flex", justifyContent: "space-between", alignItems: "center",
+        paddingTop: 20, borderTop: "1px solid #ffffff23",
+        fontSize: 20, color: "#aebaca",
+      }}>
+        <span>Dates · Timezones · UI correctness</span>
+        <span>nehamangla.com</span>
+      </div>
+    </div>,
     { ...size }
   );
 }
