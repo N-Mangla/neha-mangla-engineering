@@ -46,7 +46,7 @@ export function SchedulingArticle() {
         Here&apos;s a reduced TypeScript illustration of that boundary:
       </p>
       <div className="article-code">
-        <div className="article-code__header"><span>TypeScript · illustrative model</span><span>Not production source</span></div>
+        <div className="article-code__header"><span>TypeScript · illustrative example</span><span>Not production code</span></div>
         <pre><code>{dateExample}</code></pre>
       </div>
       <p>
@@ -124,10 +124,6 @@ export function SchedulingArticle() {
         and data freshness explicit before rendering. That gives the UI
         library less to guess about, and gives the rest of the application
         rules that can be tested without opening a calendar.
-      </p>
-      <p className="article-note">
-        Examples are simplified to explain the approach. They do not reproduce
-        employer source code or internal service contracts.
       </p>
     </article>
   );
