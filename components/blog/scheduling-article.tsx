@@ -1,159 +1,118 @@
 export function SchedulingArticle() {
   return (
-    <div className="article-body">
+    <article className="article-body article-body--focused">
       <p className="article-lead">
-        A calendar brings together records that look similar on screen but follow
-        different rules. A shift has a start and end time. A day off refers to
-        a date. An absence may be visible to a manager without exposing every
-        detail. Treating them as interchangeable events is where the trouble starts.
+        A shift, a day off, and an absence can all appear as blocks on a calendar.
+        But they don't mean the same thing. I ran into that distinction while
+        working on a workforce scheduling interface with React, TypeScript, and Bryntum.
       </p>
       <p>
-        On a workforce scheduling project built with React, TypeScript, and Bryntum,
-        we had shifts, overtime, absences, and days off arriving through different
-        services. The same information also had to behave consistently in day,
-        week, month, and team views.
-      </p>
-      <p>
-        I wanted those differences resolved in application code rather than relying
-        on each calendar view to interpret them.
+        The calendar had to bring together records from different services and
+        show them consistently across day, week, month, and team views.
+        Before worrying about colors or event layouts, we needed agreement on
+        the dates, permissions, and data each view could use.
       </p>
 
-      <h2 id="event-model">Where the calendar data came together</h2>
+      <h2 id="dates">When an all-day event lands on the wrong date</h2>
       <p>
-        Shifts, overtime, and absences do not necessarily share a data contract.
-        They may have different identifiers, date fields, and visibility rules.
-        Passing each response straight into a calendar library makes those
-        differences the rendering layer&apos;s problem. It also spreads product
-        decisions across view configuration and event handlers.
+        Here's a small example of why I treat date-only values differently
+        from timestamps. These are illustrative records, not application code:
       </p>
+      <div className="article-example-grid">
+        <div className="article-example">
+          <span className="article-example__label">Day off · calendar date</span>
+          <pre><code>{'{ type: "dayOff", date: "2026-10-23" }'}</code></pre>
+          <p>The day off belongs to 23 October, regardless of the viewer's timezone.</p>
+        </div>
+        <div className="article-example">
+          <span className="article-example__label">Shift · moment in time</span>
+          <pre><code>{'{ type: "shift", start: "2026-10-23T09:00:00Z" }'}</code></pre>
+          <p>A shift's displayed clock time can change with the selected timezone.</p>
+        </div>
+      </div>
       <p>
-        I used an application event model between the service APIs and the
-        calendar. Each source was translated into events with consistent identity,
-        date meaning, category, and permission metadata. The calendar consumed
-        the result, rather than needing to understand the original service.
+        Parsing <code>2026-10-23</code> as midnight UTC and then formatting it
+        in a timezone behind UTC can show October 22. That's valid conversion
+        of an instant, but it's not what the date-only record meant.
+        We kept calendar dates and timed events on separate conversion paths.
       </p>
 
-      <figure className="article-diagram">
-        <figcaption>How I separated service data from calendar rendering — simplified</figcaption>
-        <div className="article-diagram__stage">Service responses</div>
+      <h2 id="boundary">What belonged to the app, not the calendar library</h2>
+      <p>
+        Shifts, overtime, and absence responses had different fields and rules.
+        Instead of wiring each service response into Bryntum, I used a typed
+        application event model. It kept event identity, date meaning,
+        categories, and permission metadata consistent before rendering.
+      </p>
+      <figure className="article-diagram article-diagram--compact">
+        <figcaption>How the rendering boundary works (simplified)</figcaption>
         <div className="article-diagram__sources">
-          <span>Shifts and overtime</span><span>Absences and days off</span><span>Categories and visibility</span>
+          <span>Shifts / overtime</span><span>Absences / days off</span><span>Categories / permissions</span>
         </div>
         <div className="article-diagram__arrow" aria-hidden="true">↓</div>
-        <div className="article-diagram__core">
-          Application event model
-          <small>Stable identity · date-only vs timed records · event category · permission metadata</small>
+        <div className="article-diagram__core">Application event model
+          <small>Stable IDs · date rules · event category · visibility</small>
         </div>
         <div className="article-diagram__arrow" aria-hidden="true">↓</div>
-        <div className="article-diagram__stage">Data and navigation handling</div>
         <div className="article-diagram__sources">
-          <span>Visible-range cache</span><span>Refresh and reload</span><span>Selected date and view</span>
-        </div>
-        <div className="article-diagram__arrow" aria-hidden="true">↓</div>
-        <div className="article-diagram__stage">Bryntum rendering</div>
-        <div className="article-diagram__sources">
-          <span>Day / week</span><span>Month / team</span><span>Consistent privacy rules</span>
+          <span>Day / week</span><span>Month / team</span><span>Bryntum rendering</span>
         </div>
       </figure>
-
       <p>
-        That layer added code and tests we had to maintain. I considered that a fair
-        cost compared with repeating conversion and permission rules in each
-        calendar view. It also meant a change to one service contract did not
-        require revisiting every rendering configuration.
+        This introduced a mapping layer we had to maintain. I preferred that
+        cost to repeating data conversion and visibility checks across views.
+        It also gave us one boundary to test when service contracts changed.
       </p>
 
-      <h2 id="dates">The all-day event problem</h2>
+      <h2 id="navigation">Fast navigation without assuming cached data is current</h2>
       <p>
-        Take a date-only value such as <code>2026-10-23</code>. If a JavaScript
-        implementation parses it as UTC midnight, a viewer in a timezone behind
-        UTC can see October 22 after local formatting. Nothing went wrong with
-        converting the instant. The mistake was inventing an instant for a value
-        whose meaning was a calendar date.
+        Someone browsing a schedule might switch views, jump forward a week,
+        and return to a range they've just seen. Fetching the same range every
+        time makes navigation sluggish; never refreshing it risks showing an
+        old schedule.
       </p>
-      <p>
-        A shift starting at a particular instant is different. Its displayed
-        clock time should change with timezone. A date-only day off should keep
-        its intended day. We kept those semantics separate instead of running
-        everything through one date conversion path.
-      </p>
-      <div className="article-comparison">
-        <div><strong>Date-only</strong><code>2026-10-23</code><span>The intended calendar day stays fixed.</span></div>
-        <div><strong>Timestamp</strong><code>2026-10-23T09:00:00Z</code><span>The displayed local time can change.</span></div>
+      <div className="article-example-grid">
+        <div className="article-example">
+          <span className="article-example__label">Restore navigation context</span>
+          <p>Selected date and calendar view. These help a user pick up where they left off.</p>
+        </div>
+        <div className="article-example">
+          <span className="article-example__label">Revalidate server data</span>
+          <p>Visible-range events and schedule changes. Reusing a range should not disable refresh.</p>
+        </div>
       </div>
       <p>
-        A useful regression check is to render the same date-only record in several
-        timezones and across all supported views. I would also check the
-        boundaries around midnight and daylight-saving changes as an additional regression scenario. A converter
-        can pass its unit tests while a view still applies a second conversion.
+        We reused loaded ranges, debounced quick navigation, and refreshed in
+        the background when appropriate. A stable range key matters here,
+        as does guarding against an older request updating a view the user
+        has already left. Persisting UI context is a different choice from
+        treating cached schedule records as permanently valid.
       </p>
 
-      <h2 id="continuity">Keeping navigation fast without showing stale data</h2>
+      <h2 id="testing">The checks I cared about</h2>
       <p>
-        People move around a calendar repeatedly. They change the view, jump
-        between dates, and come back to the range they were just looking at.
-        Resetting useful context on every transition makes the interface feel
-        unreliable. But keeping old schedule records indefinitely creates the
-        opposite problem: a smooth interface that can display out-of-date data.
+        The awkward failures were often subtle: a day off shown one date early,
+        confidential absence details visible in the wrong view, or an old
+        response replacing newer data. They wouldn't necessarily make the
+        screen look broken.
       </p>
-      <p>
-        For this reason I separated continuity from freshness. Visible-range
-        results could be reused when navigation returned to an already loaded
-        range; refresh happened without always replacing useful content with a
-        blocking loader. A deliberate reload path remained available when a
-        fresh read was necessary.
-      </p>
-      <p>
-        Rapid navigation was another place where it was easy to waste requests.
-        Debouncing helped, but it was only one part of the solution. The visible
-        range also needed a stable cache key, and a response from an earlier
-        navigation could not be allowed to replace data for the range now on
-        screen. Those details matter more than making a loading spinner disappear.
-      </p>
-      <p>
-        Selected date and view are navigation context. Schedule records have a
-        different owner and freshness requirement. Persisting the former may
-        help someone resume their work; persisting the latter without a clear
-        invalidation strategy risks displaying stale information. That boundary
-        matters whether state lives in Zustand, React Query, or another tool.
-      </p>
+      <ul className="article-checks">
+        <li>Date-only records remain on the intended date across timezones and views.</li>
+        <li>Privacy rules still apply when switching between individual and team views.</li>
+        <li>Revisiting a cached range doesn't prevent a later refresh.</li>
+        <li>A failed service request doesn't take down the surrounding interface.</li>
+        <li>Rapid navigation doesn't let an earlier response overwrite the active range.</li>
+      </ul>
 
-      <h2 id="verification">The cases I would never leave to manual testing</h2>
       <p>
-        The failure cases worth checking are often quiet ones: a date shifted by
-        one day, a restricted absence rendered with too much detail, or a cached
-        range that no longer refreshes. A screenshot of a populated calendar
-        would not catch any of them.
-      </p>
-      <div className="article-table-wrap">
-        <table className="article-table">
-          <thead><tr><th>Situation</th><th>What needs to hold</th></tr></thead>
-          <tbody>
-            <tr><td>A date-only record crosses timezones</td><td>It remains on the intended business day.</td></tr>
-            <tr><td>A user switches views</td><td>Permissions and event meaning do not change.</td></tr>
-            <tr><td>A known range is revisited</td><td>Useful data is reused without suppressing later refresh.</td></tr>
-            <tr><td>A service fails</td><td>The calendar fails safely rather than taking down the surrounding interface.</td></tr>
-            <tr><td>A confidential absence appears</td><td>Private details stay masked in every view.</td></tr>
-          </tbody>
-        </table>
-      </div>
-
-      <h2 id="takeaway">What I would keep if I built it again</h2>
-      <p>
-        Scheduling pulls several concerns into one screen: service contracts,
-        business dates, permissions, navigation, and a third-party UI library.
-        Problems appear when those concerns start making decisions for each other.
-      </p>
-      <p>
-        I would keep the typed event model outside the calendar integration. It
-        adds a mapping step, but it also gives date rules, permission metadata,
-        and service differences one place to be inspected and tested. The
-        calendar component can then focus on interaction and rendering.
+        If I built this again, I'd still keep product rules outside the calendar
+        component. Bryntum should handle interaction and rendering; it shouldn't
+        decide what a business date means or which absence details someone can see.
       </p>
       <p className="article-note">
-        Examples in this article are simplified to explain the engineering
-        decisions; they do not reproduce employer code or internal contracts.
+        Examples are simplified for illustration. They don't reproduce employer
+        source code or internal service contracts.
       </p>
-    </div>
+    </article>
   );
 }
