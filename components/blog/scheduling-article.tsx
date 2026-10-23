@@ -2,9 +2,10 @@ export function SchedulingArticle() {
   return (
     <div className="article-body">
       <p className="article-lead">
-        Most calendar bugs I&apos;ve dealt with were not about drawing events on a screen.
-        They came from the assumptions around those events: what a date means,
-        what someone is allowed to see, and when data needs to be fetched again.
+        A calendar brings together records that look similar on screen but follow
+        different rules. A shift has a start and end time. A day off refers to
+        a date. An absence may be visible to a manager without exposing every
+        detail. Treating them as interchangeable events is where the trouble starts.
       </p>
       <p>
         On a workforce scheduling project built with React, TypeScript, and Bryntum,
@@ -13,8 +14,8 @@ export function SchedulingArticle() {
         week, month, and team views.
       </p>
       <p>
-        The approach that held up best was to settle the meaning of an event before
-        passing it to the calendar library.
+        I wanted those differences resolved in application code rather than relying
+        on each calendar view to interpret them.
       </p>
 
       <h2 id="event-model">The calendar should not interpret every service response</h2>
@@ -56,10 +57,11 @@ export function SchedulingArticle() {
 
       <h2 id="dates">Some dates are days, not instants</h2>
       <p>
-        Consider a day-off record for <code>2026-10-23</code>. If that value
-        means “this calendar day,” treating it as midnight UTC and converting
-        it into the viewer&apos;s timezone can move it to October 22. The conversion
-        is technically valid for a timestamp, but wrong for the business record.
+        Take a date-only value such as <code>2026-10-23</code>. If a JavaScript
+        implementation parses it as UTC midnight, a viewer in a timezone behind
+        UTC can see October 22 after local formatting. Nothing went wrong with
+        converting the instant. The mistake was inventing an instant for a value
+        whose meaning was a calendar date.
       </p>
       <p>
         A shift starting at a particular instant is different. Its displayed
@@ -72,10 +74,10 @@ export function SchedulingArticle() {
         <div><strong>Timestamp</strong><code>2026-10-23T09:00:00Z</code><span>The displayed local time can change.</span></div>
       </div>
       <p>
-        I would test this with the same date-only value in timezones on either side
-        of UTC, then check the result in each calendar view. A passing unit test
-        for the converter alone would not catch a view that applied another
-        conversion while rendering.
+        A useful regression check is to render the same date-only record in several
+        timezones and across all supported views. I would also check the
+        boundaries around midnight and daylight-saving changes. A converter
+        can pass its unit tests while a view still applies a second conversion.
       </p>
 
       <h2 id="continuity">Navigation context and server data have different lifetimes</h2>
@@ -101,18 +103,19 @@ export function SchedulingArticle() {
         screen. Those details matter more than making a loading spinner disappear.
       </p>
       <p>
-        I treat the selected date and view as navigation context, not as proof that
-        previously loaded events are still current. Persisting that context and
-        revalidating server data are two different decisions. In a React app,
-        the store you choose matters less than making that distinction explicit.
+        Selected date and view are navigation context. Schedule records have a
+        different owner and freshness requirement. Persisting the former may
+        help someone resume their work; persisting the latter without a clear
+        invalidation strategy risks displaying stale information. That boundary
+        matters whether state lives in Zustand, React Query, or another tool.
       </p>
 
       <h2 id="verification">What I wanted the tests to catch</h2>
       <p>
-        I spent more attention on cases where a wrong result could look plausible:
-        a date shifted by one day, an absence rendered with too much detail,
-        or a cached range that never refreshed. They are easy to miss if testing
-        stops after confirming that events appear on the screen.
+        The failure cases worth checking are often quiet ones: a date shifted by
+        one day, a restricted absence rendered with too much detail, or a cached
+        range that no longer refreshes. A screenshot of a populated calendar
+        would not catch any of them.
       </p>
       <div className="article-table-wrap">
         <table className="article-table">
@@ -127,18 +130,17 @@ export function SchedulingArticle() {
         </table>
       </div>
 
-      <h2 id="takeaway">Where I would draw the boundary again</h2>
+      <h2 id="takeaway">The boundary I would keep</h2>
       <p>
         Scheduling pulls several concerns into one screen: service contracts,
         business dates, permissions, navigation, and a third-party UI library.
         Problems appear when those concerns start making decisions for each other.
       </p>
       <p>
-        The most useful decision was giving those rules a stable home outside
-        the UI library. Once the event model owned the meaning of the data,
-        it became easier to reason about different views, test failures, and
-        adapt the implementation without reinterpreting the same rules in
-        multiple places.
+        I would keep the typed event model outside the calendar integration. It
+        adds a mapping step, but it also gives date rules, permission metadata,
+        and service differences one place to be inspected and tested. The
+        calendar component can then focus on interaction and rendering.
       </p>
       <p className="article-note">
         Examples in this article are simplified to explain the engineering
