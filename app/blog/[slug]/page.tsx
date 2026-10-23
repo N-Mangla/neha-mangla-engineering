@@ -29,7 +29,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 export default async function ArticlePage({ params }: Props) {
   const { slug } = await params;
   const article = getArticle(slug);
-  if (!article?.publishedAt) notFound();
+  if (!article || (!article.publishedAt && process.env.NODE_ENV !== "development")) notFound();
   if (article.slug !== "reliable-scheduling-uis") notFound();
   return (
     <>
@@ -39,11 +39,12 @@ export default async function ArticlePage({ params }: Props) {
           <InternalLink href="/blog">Engineering Notes</InternalLink><span aria-hidden="true"> / </span><span>Scheduling UIs</span>
         </nav>
         <header className="article-heading">
+          {!article.publishedAt && <p className="eyebrow">Unpublished draft · local preview</p>}
           <p className="eyebrow">{article.topics.join(" · ")}</p>
           <h1>{article.title}</h1>
           <p>{article.description}</p>
           <div className="article-byline">Neha Mangla <span aria-hidden="true">·</span> {article.readingMinutes} min read
-            <span aria-hidden="true">·</span> <time dateTime={article.publishedAt}>{new Date(article.publishedAt).toLocaleDateString("en-GB", {day:"numeric",month:"long",year:"numeric",timeZone:"UTC"})}</time>
+            {article.publishedAt && <><span aria-hidden="true">·</span> <time dateTime={article.publishedAt}>{new Date(article.publishedAt).toLocaleDateString("en-GB", {day:"numeric",month:"long",year:"numeric",timeZone:"UTC"})}</time></>}
           </div>
         </header>
         <div className="article-layout">
