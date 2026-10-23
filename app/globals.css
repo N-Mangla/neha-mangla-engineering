@@ -8543,3 +8543,17 @@ a {
 .article-choices strong {font-size:1rem}
 .article-choices p {margin:0}
 @media(max-width:650px){.article-result,.article-choices,.article-transform__inputs,.article-transform__outputs {grid-template-columns:1fr}.article-code pre {font-size:.75rem}.article-heading h1 {font-size:clamp(2.45rem,9vw,3.4rem)}}
+
+/* Range-navigation example */
+.article-range-flow {margin:1.9rem 0 2rem;padding:1.35rem;background:#f0eee9;border:1px solid #d8d7d1;border-radius:14px}
+.article-range-flow figcaption {font-size:.82rem;color:#506069;margin-bottom:1.15rem}
+.article-range-flow__steps {display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:.65rem}
+.article-range-flow__steps > div {display:flex;flex-direction:column;gap:.4rem;min-width:0;padding:1rem;background:#fffefa;border:1px solid #d9d8d1;border-radius:9px}
+.article-range-flow__steps span {font-size:.7rem;letter-spacing:.08em;font-weight:750;color:#5d7079}
+.article-range-flow__steps strong {font-size:1rem;color:#1e3038}
+.article-range-flow__steps small {font-size:.76rem;line-height:1.5;color:#526169}
+.article-body--focused h2 {margin-top:3.5rem;margin-bottom:1.4rem}
+.article-body--focused p {margin-bottom:1.65rem}
+.article-code pre {font-size:.92rem;line-height:1.8}
+.article-body--focused .article-note {margin-top:2.1rem}
+@media(max-width:650px){.article-range-flow__steps{grid-template-columns:1fr}.article-code pre{font-size:.79rem}}
