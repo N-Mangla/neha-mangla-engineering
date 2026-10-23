@@ -8501,3 +8501,17 @@ a {
 .article-diagram__sources span {display:flex;align-items:center;justify-content:center;min-height: 3.25rem;padding: .8rem .5rem;}
 .article-diagram__core {line-height:1.5;}
 .article-diagram__core small {line-height:1.6;}
+
+/* Focused engineering article */
+.article-layout--focused {display:block;max-width:760px;margin-inline:auto}
+.article-body--focused h2 {margin-top:3.2rem}
+.article-example-grid {display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:1rem;margin:1.8rem 0 2rem}
+.article-example {min-width:0;background:#f0eee9;border:1px solid #dedbd4;border-radius:12px;padding:1.25rem}
+.article-example__label {display:block;color:#515d62;font-size:.75rem;letter-spacing:.025em;font-weight:700;margin-bottom:.8rem}
+.article-example pre {white-space:pre-wrap;overflow-wrap:anywhere;margin:0 0 1rem;font-size:.83rem;line-height:1.65}
+.article-example pre code {padding:0;background:none;font-size:inherit}
+.article-example p {font-size:.89rem;line-height:1.65;margin:0;color:#4c555a}
+.article-diagram--compact {margin-block:2rem}
+.article-checks {margin:1rem 0 2.2rem;padding-left:1.35rem}
+.article-checks li {margin-bottom:.7rem;padding-left:.25rem}
+@media(max-width:650px){.article-example-grid{grid-template-columns:1fr}.article-layout--focused{max-width:100%}}
