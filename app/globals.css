@@ -8495,3 +8495,9 @@ a {
 .article-outro a {color:inherit;font-weight:650}
 @media(max-width:800px) {.article-layout{display:block}.article-toc{position:static;margin-bottom:2.5rem;padding-bottom:1.3rem;border-bottom:1px solid #ddd;border-left:0;padding-left:0}.article-heading{margin:2rem auto 3rem}}
 @media(max-width:480px) {.article-comparison{grid-template-columns:1fr}.article-body{font-size:1rem}.article-body .article-lead{font-size:1.15rem}.article-diagram__sources span{font-size:.68rem}.article-outro{padding:1.5rem}}
+
+/* Article architecture flow */
+.article-diagram__stage {margin: .8rem 0; font-size: .72rem; font-weight: 750; letter-spacing: .09em; text-transform: uppercase; color: #53636b;}
+.article-diagram__sources span {display:flex;align-items:center;justify-content:center;min-height: 3.25rem;padding: .8rem .5rem;}
+.article-diagram__core {line-height:1.5;}
+.article-diagram__core small {line-height:1.6;}
