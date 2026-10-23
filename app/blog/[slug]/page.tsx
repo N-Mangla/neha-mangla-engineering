@@ -50,11 +50,11 @@ export default async function ArticlePage({ params }: Props) {
         <div className="article-layout">
           <aside className="article-toc" aria-label="On this page">
             <span>On this page</span>
-            <a href="#event-model">The event model</a>
-            <a href="#dates">Date semantics</a>
-            <a href="#continuity">State and freshness</a>
-            <a href="#verification">Testing</a>
-            <a href="#takeaway">Takeaway</a>
+            <a href="#event-model">Data integration</a>
+            <a href="#dates">All-day events</a>
+            <a href="#continuity">Navigation and refresh</a>
+            <a href="#verification">Regression checks</a>
+            <a href="#takeaway">Looking back</a>
           </aside>
           <SchedulingArticle />
         </div>
