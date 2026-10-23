@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { SiteHeader } from "@/components/site-header";
 import { SiteFooter } from "@/components/site-footer";
 import { InternalLink } from "@/components/internal-link";
-import { getPublishedArticles } from "@/data/articles";
+import { articles, getPublishedArticles } from "@/data/articles";
 
 export const metadata: Metadata = {
   title: "Engineering Notes",
@@ -12,7 +12,7 @@ export const metadata: Metadata = {
 };
 
 export default function BlogIndex() {
-  const articles = getPublishedArticles();
+  const visibleArticles = process.env.NODE_ENV === "development" ? articles : getPublishedArticles();
   return (
     <>
       <SiteHeader />
@@ -23,10 +23,10 @@ export default function BlogIndex() {
           This is where I write about specific implementation decisions,
           debugging work, and the trade-offs I&apos;ve encountered along the way.
         </p>
-        {articles.length ? (
-          <div className="blog-grid">{articles.map(article => (
+        {visibleArticles.length ? (
+          <div className="blog-grid">{visibleArticles.map(article => (
             <article className="blog-card" key={article.slug}>
-              <p className="eyebrow">{article.topics.slice(0, 2).join(" · ")}</p>
+              <p className="eyebrow">{!article.publishedAt ? "Draft · Local preview" : article.topics.slice(0, 2).join(" · ")}</p>
               <h2><InternalLink href={`/blog/${article.slug}`}>{article.title}</InternalLink></h2>
               <p>{article.description}</p>
               <span>{article.readingMinutes} min read <span aria-hidden="true">↗</span></span>
