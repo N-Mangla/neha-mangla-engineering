@@ -16,9 +16,10 @@ export function SchedulingArticle() {
   return (
     <article className="article-body article-body--focused">
       <p className="article-lead">
-        A day off looked straightforward until I considered what happens when
-        a date-only record is treated like a timestamp. In a scheduling UI,
-        that small distinction can put an event on the wrong day.
+        In a workforce calendar, shifts, absences, and days off can look like
+        variations of the same event. They aren&apos;t. A day off belongs to a
+        calendar date; a shift belongs to a span of time. Mixing those rules
+        can move an event to the wrong day without producing an obvious error.
       </p>
       <p>
         I worked on a workforce calendar using React, TypeScript, and Bryntum.
@@ -58,10 +59,11 @@ export function SchedulingArticle() {
 
       <h2 id="boundary">The boundary before Bryntum</h2>
       <p>
-        The services weren&apos;t returning one shared event format. I introduced
-        an application event model so that IDs, categories, date handling,
-        and permission metadata had a consistent shape. Bryntum received
-        the normalized result, rather than needing to understand every service.
+        The services weren&apos;t returning one shared event format. We could have
+        mapped each response directly into the calendar, then handled the
+        differences in individual views. I chose a typed application event
+        model instead. It gave IDs, categories, date handling, and permission
+        metadata a consistent shape before anything reached Bryntum.
       </p>
       <figure className="article-transform">
         <figcaption>Where service-specific data stops and calendar rendering begins</figcaption>
@@ -79,10 +81,10 @@ export function SchedulingArticle() {
         <div className="article-transform__footer">Bryntum: event layout, interactions, and presentation</div>
       </figure>
       <p>
-        That mapping layer was another thing to maintain and test, but it
-        stopped service contracts and view-specific rendering details from
-        becoming tangled together. Permission rules also had to remain
-        consistent in day, week, month, and team views.
+        The extra mapping layer meant more code and more tests. The alternative
+        was to maintain the same conversion and visibility logic in several
+        places, including day, week, month, and team views. I preferred one
+        boundary where the behavior could be reviewed and tested.
       </p>
 
       <h2 id="navigation">A responsive calendar still needs fresh data</h2>
@@ -117,11 +119,11 @@ export function SchedulingArticle() {
         user had navigated somewhere else.
       </p>
       <p>
-        I&apos;d make that same separation again. A calendar library is useful for
-        rendering and interaction, but I don&apos;t want its configuration to
-        become the place where service contracts, business dates, and privacy
-        rules are interpreted. Those decisions are easier to maintain and
-        test when the application owns them.
+        What I would carry into the next scheduling project is not a particular
+        calendar configuration. It&apos;s the decision to make dates, permissions,
+        and data freshness explicit before rendering. That gives the UI
+        library less to guess about, and gives the rest of the application
+        rules that can be tested without opening a calendar.
       </p>
       <p className="article-note">
         Examples are simplified to explain the approach. They do not reproduce
