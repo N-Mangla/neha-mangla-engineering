@@ -12,7 +12,7 @@ export const articles: Article[] = [
     slug: "reliable-scheduling-uis",
     title: "Why building a reliable calendar UI is harder than it looks",
     description: "A practical look at date-only events, the boundary around a calendar library, and keeping schedule data responsive without going stale.",
-    publishedAt: null, // Editorial draft. Set a real date only after final review.
+    publishedAt: "2026-10-23T00:00:00+05:30",
     readingMinutes: 4,
     topics: ["React", "TypeScript", "Scheduling", "Frontend architecture"],
   },
