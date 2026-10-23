@@ -24,7 +24,7 @@ export function ProjectCard({
             <span>{project.number}</span>
             {project.eyebrow}
           </p>
-          <h3>{project.title}</h3>
+          <h3><InternalLink className="project-card__title-link" href={`/work/${project.slug}`}>{project.title}</InternalLink></h3>
           <p className="project-card__summary">{project.summary}</p>
         </div>
 
@@ -34,15 +34,16 @@ export function ProjectCard({
               <li key={tag}>{tag}</li>
             ))}
           </ul>
+          <p className="project-card__expectation">Architecture · Engineering decisions · Outcomes</p>
           <InternalLink className="project-card__link" href={`/work/${project.slug}`}>
-            View case study <span aria-hidden="true">↗</span>
+            Explore case study <span aria-hidden="true">↗</span>
           </InternalLink>
         </div>
       </div>
 
-      <div className="project-card__visual" aria-hidden="true">
+      <InternalLink className="project-card__visual project-card__visual-link" href={`/work/${project.slug}`} aria-label={`Explore ${project.title} case study`}>
         <ProjectVisual type={project.visual} />
-      </div>
+      </InternalLink>
     </article>
   );
 }
