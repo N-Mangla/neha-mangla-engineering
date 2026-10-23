@@ -18,7 +18,7 @@ export const featuredProjects = [
     eyebrow: "Workforce scheduling",
     title: "Keeping workforce schedules correct across time zones",
     summary:
-      "A workforce calendar unifying shifts, absences, overtime, permissions, and date semantics behind one application event model.",
+      "A day off can appear on the wrong date even when the calendar looks right. How I handled dates, different event types, and schedule freshness across views.",
     tags: ["System architecture", "Date semantics", "Production reliability"],
     visual: "calendar",
     tone: "blue",
@@ -29,7 +29,7 @@ export const featuredProjects = [
     eyebrow: "Asynchronous operations",
     title: "Making data imports dependable",
     summary:
-      "A four step import workflow preserving user context across validation, schema mapping, queued processing, partial success, and recovery.",
+      "What happens when a CSV upload passes validation but fails later? Designing an import flow that keeps users informed through mapping, processing, and recovery.",
     tags: ["Async systems", "Lifecycle design", "Failure recovery"],
     visual: "import",
     tone: "plum",
@@ -40,7 +40,7 @@ export const featuredProjects = [
     eyebrow: "Performance analytics",
     title: "Making performance after coaching explainable",
     summary:
-      "A full stack analytics experience comparing KPI movement across configurable periods without overstating what the data could prove.",
+      "A coaching dashboard can show improvement without proving its cause. How I worked with KPI comparisons, filters, and data presentation to make results easier to interpret.",
     tags: ["Analytical contracts", "Aggregation", "Interpretation"],
     visual: "analytics",
     tone: "green",

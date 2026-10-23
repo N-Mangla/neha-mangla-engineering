@@ -5,8 +5,10 @@ import { ProjectCard } from "@/components/project-card";
 import { SiteFooter } from "@/components/site-footer";
 import { SiteHeader } from "@/components/site-header";
 import { earlierWork, featuredProjects } from "@/data/projects";
+import { getPublishedArticles } from "@/data/articles";
 
 export default function Home() {
+  const latestArticle = getPublishedArticles()[0];
   return (
     <>
       <SiteHeader />
@@ -53,7 +55,7 @@ export default function Home() {
                 <span className="section-heading__line" aria-hidden="true" />
               </div>
               <h2 id="work-title">
-                Engineering stories, <span>not feature lists.</span>
+                Selected engineering <span>work.</span>
               </h2>
             </div>
 
@@ -71,9 +73,20 @@ export default function Home() {
 
         <section className="notes-preview shell" aria-labelledby="notes-title">
           <p className="eyebrow">Engineering Notes</p>
-          <h2 id="notes-title">Engineering Notes</h2>
-          <p>Writing about React, TypeScript, and the details behind complex product interfaces.</p>
-          <InternalLink href="/blog">Read engineering notes ↗</InternalLink>
+          <h2 id="notes-title">From the engineering notebook.</h2>
+          {latestArticle ? (
+            <div className="notes-preview__feature">
+              <div>
+                <p className="notes-preview__topic">{latestArticle.topics.slice(0, 2).join(" · ")} · {latestArticle.readingMinutes} min read</p>
+                <h3>{latestArticle.title}</h3>
+                <p>{latestArticle.description}</p>
+              </div>
+              <InternalLink href={`/blog/${latestArticle.slug}`}>Read article <span aria-hidden="true">↗</span></InternalLink>
+            </div>
+          ) : (
+            <p>Writing about React, TypeScript, and the details behind complex product interfaces.</p>
+          )}
+          <InternalLink className="notes-preview__all" href="/blog">All engineering notes →</InternalLink>
         </section>
 
         <section className="earlier-work" aria-labelledby="earlier-work-title">

@@ -71,7 +71,7 @@ export function CalendarCaseStudy({ project }: CalendarCaseStudyProps) {
         <header className="editorial-case__heading">
           <p className="eyebrow">02 · What made it difficult</p>
           <h2 id="challenges-title">
-            Every simple calendar view depended on <span>four system guarantees.</span>
+            Four problems that made the calendar harder than it looked.
           </h2>
         </header>
 
@@ -119,7 +119,7 @@ export function CalendarCaseStudy({ project }: CalendarCaseStudyProps) {
         <header className="editorial-case__heading editorial-case__heading--narrow">
           <p className="eyebrow">04 · Technical direction</p>
           <h2 id="decisions-title">
-            Three decisions protected correctness, privacy, and continuity.
+            Three implementation decisions that shaped the calendar.
           </h2>
         </header>
 
@@ -161,8 +161,7 @@ export function CalendarCaseStudy({ project }: CalendarCaseStudyProps) {
         <header className="editorial-case__heading">
           <p className="eyebrow">05 · From decision to production</p>
           <h2 id="delivery-title">
-            Three stages connected the model to{" "}
-            <span>production evidence.</span>
+            From implementation to release.
           </h2>
         </header>
 
@@ -207,7 +206,7 @@ export function CalendarCaseStudy({ project }: CalendarCaseStudyProps) {
         <div className="shell">
           <div className="editorial-case__impact-panel">
             <header>
-              <p className="eyebrow">06 · Verified outcomes</p>
+              <p className="eyebrow">06 · Outcomes</p>
               <h2 id="outcomes-title">
                 Correct dates. Protected data. Responsive navigation. One
                 dependable system.

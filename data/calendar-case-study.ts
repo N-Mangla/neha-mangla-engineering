@@ -2,7 +2,7 @@ export const calendarCaseStudy = {
   eyebrow: "Case study 01 · Enterprise workforce scheduling",
   title: "Engineering a workforce calendar where every date had to be right.",
   lead:
-    "I set the technical direction for MyTime+, unifying multiple service contracts, scheduling rules, permissions, and time zone behaviour behind one reliable workforce calendar.",
+    "I worked on a React and TypeScript workforce calendar where shifts, days off, overtime, and absences needed different date and visibility rules across multiple views.",
   facts: [
     { label: "Role", value: "Senior Full Stack Engineer" },
     {
@@ -14,14 +14,14 @@ export const calendarCaseStudy = {
   ],
   brief: {
     title:
-      "The calendar was the interface. The real work was making every system agree.",
+      "The challenge was keeping scheduling rules consistent across views.",
     assignment: [
       "Employees and managers needed one trustworthy view of shifts, overtime, absences, days off, and categories across day, week, month, and team views. Those records came from different services, followed different date rules, and exposed different information by role.",
       "A calendar could look correct while showing the wrong day, revealing confidential details, or serving stale data. Reliability depended on resolving those rules before anything reached the interface.",
     ],
     responsibility: [
-      "I owned the technical direction before implementation began. I defined the application event model, loading and refresh behaviour, view rules, permission boundaries, and verification strategy that governed how service data entered the calendar.",
-      "I aligned Product, Design, service teams, and vendor support around those boundaries before implementation, giving the team shared decisions to build and validate against.",
+      "My work covered event transformation, view-specific rendering, date handling, data loading, and testing calendar behavior across different views.",
+      "I worked with design and engineering colleagues and investigated vendor-specific behavior when the calendar library did not match the product requirements.",
     ],
   },
   constraints: [
@@ -51,7 +51,7 @@ export const calendarCaseStudy = {
     },
   ],
   architecture: {
-    title: "Raw service data never reached the calendar.",
+    title: "Normalizing service data before rendering",
     body:
       "I introduced an application event model between the service APIs and Bryntum. It normalised business meaning before rendering, gave product rules one testable boundary, and kept vendor behaviour isolated from the rest of the application.",
     stages: [
@@ -112,7 +112,7 @@ export const calendarCaseStudy = {
     },
     {
       number: "03",
-      title: "Cache for continuity, refresh for truth",
+      title: "Reuse cached schedules without showing stale data",
       risk:
         "Repeated range requests slowed navigation, while blocking refreshes interrupted users who already had useful schedule data.",
       decision:
@@ -120,7 +120,7 @@ export const calendarCaseStudy = {
       tradeoff:
         "Cached ranges could briefly trail the service, so background refresh and explicit reload paths balanced continuity with freshness.",
       result:
-        "The approach reduced redundant API requests by approximately 80 percent while keeping navigation responsive and schedules current.",
+        "Range caching and navigation handling helped avoid unnecessary repeated requests while preserving responsive navigation.",
     },
   ],
   journey: [
@@ -168,17 +168,17 @@ export const calendarCaseStudy = {
     },
     {
       title: "Critical flow coverage",
-      body: "More than 90 percent automated coverage across critical flows, reviewed for correctness, performance, privacy, and edge cases.",
+      body: "Tests addressed calendar transformations and edge cases across date handling, loading, and view behavior.",
     },
   ],
   outcomes: [
     {
-      value: "≈80%",
-      label: "fewer redundant range requests in pre-cache versus cached navigation tests",
+      value: "Fewer requests",
+      label: "range reuse avoided redundant schedule fetches",
     },
     {
-      value: "90%+",
-      label: "coverage across the critical calendar behaviour suite",
+      value: "Tested behavior",
+      label: "calendar transformations and edge cases covered by tests",
     },
     {
       value: "Correct dates",
@@ -190,7 +190,7 @@ export const calendarCaseStudy = {
     },
   ],
   reflection: {
-    title: "The event model became the product boundary.",
+    title: "A shared event model kept calendar rules consistent.",
     body:
       "Services could change and calendar views could vary, while date, privacy, and loading rules still had one governed place.",
   },
