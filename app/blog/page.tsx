@@ -33,7 +33,7 @@ export default function BlogIndex() {
             </article>
           ))}</div>
         ) : (
-          <p className="blog-page__empty">I&apos;m working on the first article, about dates, data loading, and state in a workforce calendar. Until then, <a href="/work/workforce-calendar">here&apos;s the related case study</a>.</p>
+          <p className="blog-page__empty">I&apos;m working on the first article, about dates, data loading, and state in a workforce calendar. Until then, <InternalLink href="/work/workforce-calendar">here&apos;s the related case study</InternalLink>.</p>
         )}
         <p className="blog-page__back"><InternalLink href="/#work">← Explore selected work</InternalLink></p>
       </main>
