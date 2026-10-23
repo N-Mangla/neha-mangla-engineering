@@ -69,6 +69,13 @@ export default function Home() {
           </div>
         </section>
 
+        <section className="notes-preview shell" aria-labelledby="notes-title">
+          <p className="eyebrow">Engineering Notes</p>
+          <h2 id="notes-title">Engineering Notes</h2>
+          <p>Writing about React, TypeScript, and the details behind complex product interfaces.</p>
+          <InternalLink href="/blog">Read engineering notes ↗</InternalLink>
+        </section>
+
         <section className="earlier-work" aria-labelledby="earlier-work-title">
           <div className="earlier-work__inner shell">
             <div className="section-heading section-heading--compact">
