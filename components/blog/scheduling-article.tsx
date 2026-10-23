@@ -16,15 +16,15 @@ export function SchedulingArticle() {
   return (
     <article className="article-body article-body--focused">
       <p className="article-lead">
-        On screen, a shift and a day off are both calendar events. In code,
-        treating them as the same kind of date can quietly put one of them
-        on the wrong day.
+        A day off looked straightforward until I considered what happens when
+        a date-only record is treated like a timestamp. In a scheduling UI,
+        that small distinction can put an event on the wrong day.
       </p>
       <p>
-        I worked on a workforce calendar built with React, TypeScript, and
-        Bryntum. Shifts, absences, overtime, and days off came from different
-        services, with different rules for dates and visibility. The difficult
-        part was getting those rules to agree before anything was rendered.
+        I worked on a workforce calendar using React, TypeScript, and Bryntum.
+        It combined shifts, absences, overtime, and days off from separate
+        services. They looked similar in the calendar, but their date handling
+        and visibility rules were not interchangeable.
       </p>
 
       <h2 id="dates">A day off that moves to yesterday</h2>
@@ -64,19 +64,19 @@ export function SchedulingArticle() {
         the normalized result, rather than needing to understand every service.
       </p>
       <figure className="article-transform">
-        <figcaption>Two different records, one deliberate rendering boundary</figcaption>
+        <figcaption>Where service-specific data stops and calendar rendering begins</figcaption>
         <div className="article-transform__inputs">
-          <div><span>DATE-ONLY SOURCE</span><strong>Day off</strong><code>date: &quot;2026-10-23&quot;</code></div>
-          <div><span>TIMED SOURCE</span><strong>Shift</strong><code>startsAt: &quot;...09:00Z&quot;</code></div>
+          <div><span>SERVICE CONTRACTS</span><strong>Shifts · overtime</strong><code>Identifiers and time fields</code></div>
+          <div><span>SERVICE CONTRACTS</span><strong>Absences · days off</strong><code>Categories and visibility rules</code></div>
         </div>
         <div className="article-transform__arrow" aria-hidden="true">↓</div>
-        <div className="article-transform__model"><strong>Application event model</strong><span>Identity · record kind · permissions · date semantics</span></div>
+        <div className="article-transform__model"><strong>Typed application event model</strong><span>Stable identity · date handling · categories · permission metadata</span></div>
         <div className="article-transform__arrow" aria-hidden="true">↓</div>
         <div className="article-transform__outputs">
-          <div><strong>Calendar date stays fixed</strong><span>Day off remains October 23</span></div>
-          <div><strong>Timestamp uses timezone</strong><span>Shift time is localized for display</span></div>
+          <div><strong>Product rules</strong><span>Normalized events and consistent access rules</span></div>
+          <div><strong>View adapters</strong><span>Day · week · month · team</span></div>
         </div>
-        <div className="article-transform__footer">Bryntum handles calendar interaction and rendering</div>
+        <div className="article-transform__footer">Bryntum: event layout, interactions, and presentation</div>
       </figure>
       <p>
         That mapping layer was another thing to maintain and test, but it
@@ -92,16 +92,20 @@ export function SchedulingArticle() {
         again makes the UI feel slow; never refreshing cached results can
         leave an old schedule on screen.
       </p>
-      <div className="article-choices">
-        <div><span>KEEP THE CONTEXT</span><strong>Selected date and view</strong><p>Restore where someone was working.</p></div>
-        <div><span>REUSE, THEN REVALIDATE</span><strong>Visible-range events</strong><p>Show useful cached data while checking whether the schedule changed.</p></div>
-      </div>
+      <figure className="article-range-flow">
+        <figcaption>Example: moving across weeks, then returning</figcaption>
+        <div className="article-range-flow__steps">
+          <div><span>01</span><strong>Week 42</strong><small>Load the visible range</small></div>
+          <div><span>02</span><strong>Week 43</strong><small>Navigate forward</small></div>
+          <div><span>03</span><strong>Week 42</strong><small>Reuse cached results; revalidate</small></div>
+        </div>
+      </figure>
       <p>
-        We used range-based reuse, debounced rapid navigation, and background
-        refreshes. The visible range needed a stable identity, and a late
-        response from an older navigation couldn&apos;t be allowed to replace
-        the current view. This was a data-lifecycle decision, not just a
-        loading-spinner optimization.
+        We reused loaded ranges, debounced quick navigation, and refreshed in the
+        background when needed. The selected date and view could be restored,
+        but the schedule itself still needed revalidation. Another important
+        check was ensuring a late response from an earlier range could not
+        overwrite the one currently on screen.
       </p>
 
       <h2 id="verification">What I checked beyond the happy path</h2>
@@ -113,9 +117,11 @@ export function SchedulingArticle() {
         user had navigated somewhere else.
       </p>
       <p>
-        If I were building this again, I&apos;d keep the same separation:
-        the application decides what an event means and who may see it;
-        the calendar library handles interaction and presentation.
+        I&apos;d make that same separation again. A calendar library is useful for
+        rendering and interaction, but I don&apos;t want its configuration to
+        become the place where service contracts, business dates, and privacy
+        rules are interpreted. Those decisions are easier to maintain and
+        test when the application owns them.
       </p>
       <p className="article-note">
         Examples are simplified to explain the approach. They do not reproduce
