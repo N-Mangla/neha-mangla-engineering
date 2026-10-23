@@ -8557,3 +8557,9 @@ a {
 .article-code pre {font-size:.92rem;line-height:1.8}
 .article-body--focused .article-note {margin-top:2.1rem}
 @media(max-width:650px){.article-range-flow__steps{grid-template-columns:1fr}.article-code pre{font-size:.79rem}}
+
+/* Article listing action */
+.blog-card__meta {display:flex;align-items:center;justify-content:space-between;gap:1rem;flex-wrap:wrap;margin-top:2rem;font-size:.86rem}
+.blog-card .blog-card__read {font-weight:700;text-decoration:underline;text-underline-offset:4px}
+.blog-card .blog-card__read:hover {text-decoration-thickness:2px}
+.blog-card:focus-within {outline:2px solid #5a79ba;outline-offset:4px}
